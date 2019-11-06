@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				width: 700px;
+				height: 400px;
+				
+				margin: 0 auto;
+				position: relative;
+			}
+			.left{
+				border:1px solid #000;
+				position: absolute;
+				top:0;
+				left: 0;
+				width: 300px;
+				height: 400px;
+			}
+			.center{
+				position: absolute;
+				top:0;
+				left: 300px;
+				width: 100px;
+				height: 400px;
+			}
+			.right{
+				position: absolute;
+				top:0;
+				left: 400px;
+				width: 300px;
+				height: 400px;
+				border:1px solid #000;
+			}
+			button{
+				width: 100%;
+				margin-top: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="left">11月5日凌晨1点43分，随着长征三号乙运载火箭成功发射第49颗北斗导航卫星，北斗三号导航卫星系统工程迎来具有里程碑意义的一刻：北斗三号系统最后一颗倾斜地球同步轨道(IGSO)卫星全部发射完毕，标志着该轨道组网顺利完成，为2020年完成北斗全球组网打下坚实基础。“独家”轨道 区域导航精度再提升 并搭载新型原子钟“IGSO-3轨道被称为北斗“独家”轨道，布局三颗卫星。
+
+在国际上，无论是GPS，还是格洛纳斯等导航系统都没有设计该轨道的卫星部署。
+			</div>
+			<div class="center">
+				<button type="button">开始搬运</button>
+				<button type="button">反向搬运</button>
+			</div>
+			<div class="right">的的大家ask大家阿斯利康建档立卡睡觉了卡的记录卡建档立卡家里宽带数据利空打击埃里克就</div>
+		</div>
+		<script type="text/javascript">
+			var left = document.querySelector(".left"); //左边的元素
+			var btnO = document.querySelectorAll("button");//btn
+			var right = document.querySelector(".right");//右边的元素
+			var leftStr = left.innerText;//左边元素的文字
+			var rightStr = right.innerText; //右边元素的文字
+			var num = 0;
+			var number = 0;
+			var timer;
+			btnO[0].onclick = function(){
+				clearInterval(timer);
+				timer = setInterval(function(){
+					left.innerHTML = leftStr.substring(num);
+					num++;
+					right.innerHTML = rightStr+leftStr.substring(0,num);
+					if(num>leftStr.length){
+						clearInterval(timer);
+					}
+				},40)
+				if(num>=leftStr){
+					clearInterval(timer);
+				}
+			}
+			btnO[1].onclick = function(){
+				clearInterval(timer);
+				timer = setInterval(function(){
+					right.innerHTML = rightStr.substring(number);
+					number++;
+					left.innerHTML = leftStr + rightStr.substring(0,number);
+					if(number>rightStr.length){
+						clearInterval(timer);
+					}
+				},100)
+				
+			}
+			
+		</script>
+	</body>
+</html>

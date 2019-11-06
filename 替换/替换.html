@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				width: 800px;
+				border:2px solid #000;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="box">
+			<p>
+				查询：<input type="text">
+				<button type="button">下一个</button>
+				<button type="button">全选</button>
+				替换内容：<input type="text">
+				<button type="button">替换</button>
+				<button type="button">全部替换</button>
+			</p>
+			<div class="item">
+				近日，据媒体报道，为了摆脱美国控制，土耳其或许再次向大国求助，在最近土耳其进攻叙利亚的过程中，美国掐断了土耳其的GPS信号，导致土耳其的作战行动受到了巨大影响，那么一旦美国掐断GPS信号，大国会让土耳其用北斗吗？对此有军迷怒怼称给钱也不卖，此前土耳其就在进口大国红旗9防空导弹时耍了手段，让中国损失惨重，历史教训绝不能忘。
+				土耳其是北约国家，所以这个国家的军事装备主要以西方为主，美国也是土耳其主要的武器供应方，目前土耳其就装备了美国提供的F16战机与M60A3坦克，所以土耳其的武器装备很大程度上都需要美国提供信息支持，一旦失去了信息支持，那么这些武器装备在战场上很难发挥出作用，最终只能让土耳其陷入被动。
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var item = document.querySelector(".item");//文字的元素
+		var itemText = item.innerText;//文字
+		var input = document.querySelector("input");//input标签
+		var inputT = document.querySelectorAll("input")[1];//input标签2
+		var btn = document.querySelectorAll("button");//btn按钮
+		var num = 0;
+		var text= null;
+		console.log(inputT)
+		var newnum = 0;
+		// 替换
+		btn[2].onclick = function(){
+		var inputTValue = inputT.value;//替换的内容
+		var inputValue = input.value.trim();//查找的字符
+		var s = '';//用于存储字符
+			if(inputValue){
+				if(!text){
+					text = itemText.split(inputValue);//根据传入的字符分解文字存入数组
+				}
+				for(var i = 0 ; i < text.length ;i++){
+					if(i < text.length-1){
+						if(i <= newnum){
+							s += text[i]+`${inputTValue}`;
+						}else{
+							s += text[i]+`${inputValue}`;
+						}
+					}else{
+						s += text[i];
+					}
+				}
+			newnum++;
+			itemText = s;
+			item.innerHTML = s;
+		}
+		}
+		//全部替换
+		btn[3].onclick = function(){
+		var inputTValue = inputT.value;//替换的内容
+		var inputValue = input.value.trim();//查找的字符
+		var s = '';//用于存储字符
+			if(inputValue){
+				if(!text){
+					text = itemText.split(inputValue);//根据传入的字符分解文字存入数组
+				}
+				for(var i = 0 ; i < text.length ;i++){
+					if(i < text.length-1){
+						s += text[i]+`${inputTValue}`;
+					}else{
+						s += text[i];
+					}
+				}
+			itemText = s;
+			item.innerHTML = s;
+		}
+		}
+		//单个选
+		btn[0].onclick = function(){
+			inputValue = input.value.trim();//获取input的值
+			if(inputValue){
+				var itemArr = itemText.split(inputValue);//文字分解存入的数组
+				var str = ''; //用于存字符
+				itemArr.forEach(function(el,index){
+					if(index>=itemArr.length-1){
+						str += el;
+					}else{
+						if(index==num){
+							str += el+`<mark>${inputValue}</mark>`
+						}else{
+							str += el+`${inputValue}`
+						}
+					}
+				})
+				num++;
+				if(num==itemArr.length-1){
+					num = 0;
+				}
+				input.oninput = function(){
+					num = 0;
+				}
+				item.innerHTML = str;
+			}
+		}
+		//全选
+		btn[1].onclick = function(){
+			inputValue = input.value.trim();//获取input的值
+			if(inputValue){
+				var itemArr = itemText.split(inputValue);//文字分解存入的数组
+				var str = ''; //用于存字符
+				itemArr.forEach(function(el,index){
+					if(index>=itemArr.length-1){
+						str += el;
+					}else{
+						str += el+`<mark>${inputValue}</mark>`
+					}
+				})
+				item.innerHTML= str; //插入结构
+			}
+		}
+	</script>
+</html>
