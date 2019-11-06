@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<body>
+	<ul>
+		<li>1</li>
+		<li class="box">2</li>
+		<li>3</li>
+		<li>4</li>
+		<li class="list"></li>
+		<li class="box l"></li>
+		<li></li>
+		<div  class="pox box">12</div>
+		<li></li>
+	</ul>
+</body>
+	<script type="text/javascript">
+		var list = document.querySelector(".list");
+		//封装一个获取元素上面的所有兄弟元素
+		//递归做法
+		function preAll(el){
+			var arr = [];
+			if(el.nodeType != 1){
+				return
+			}
+			//封装一个递归调用
+			function digui(el){
+				var pre = el.previousElementSibling;
+				if(pre!=null){
+					arr.unshift(pre);
+					digui(pre);
+				}
+			}
+			digui(el);
+			return arr;
+		}
+		//封装一个获取元素上面的所有兄弟元素
+		//通过while方法做
+		function fn(el){
+			var arr = [];
+			while(el){
+				var pre = el.previousElementSibling;
+				if(pre == null){
+					el = pre;
+				}else{
+					arr.unshift(pre);
+					el = pre;
+				}
+			}
+			return arr;
+		}
+		//封装一个获取元素兄弟元素中某个元素的方法
+		//参数1:元素,参数2:字符串(可以传class，标签);
+		function sibling(el,str){
+			var parent = el.parentNode; //先找到元素的父级
+			var sons = parent.children; //通过父级元素找到父级下面所有的子元素
+			var arr = []; //建立一个数组存兄弟元素
+			var arr1 = [];//建立一个数组存与第二参数符合的兄弟元素
+			for(var i = 0 ; i < sons.length ; i++){
+				if(sons[i] == el){
+					
+				}else{
+					arr.push(sons[i]);
+				}
+			}
+			//判断str是否有值
+			if(!str){
+				return arr;
+			}else{
+				var firstStr = str.substr(0,1);
+				if(firstStr == "."){
+					for(var i  = 0 ;i < arr.length ; i++){
+						var arr2 = arr[i].className.split(" ");
+						for(var j = 0 ; j < arr2.length; j++){
+							if(arr2[j] == str.substring(1)){
+								arr1.push(arr[i]);
+							}
+						}
+					}
+				}else{
+					for(i = 0 ; i < arr.length ; i++){
+						if(arr[i].nodeName == str.toUpperCase()){
+							arr1.push(arr[i]);
+						}
+					}
+				}
+				return arr1;
+			}
+			
+		}
+	var vvv	= sibling(list,".box");
+	vvv.forEach(function(el,index){
+		el.style.background="darkred";
+	})
+	console.log(vvv);
+	</script>
+</html>
